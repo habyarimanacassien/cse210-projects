@@ -6,21 +6,20 @@ public class Journal
 {
     // Member variables
     public List<Entry> _entries = new List<Entry>();
-    public List<string> _prompts = new List<string>();
-    private bool _hasUnsavedChanges = false;
-
-    // Constructor
-    public Journal()
+    
+    // Initialize prompts
+    public List<string> _prompts = new List<string> 
     {
-        // Initialize the list of prompts
-        _prompts.Add("Who was the most interesting person I interacted with today?");
-        _prompts.Add("What was the best part of my day?");
-        _prompts.Add("How did I see the hand of the Lord in my life today?");
-        _prompts.Add("What was the strongest emotion I felt today?");
-        _prompts.Add("If I had one thing I could do over today, what would it be?");
-        _prompts.Add("What am I grateful for today?");
-        _prompts.Add("What did I learn today?");
-    }
+        "Who was the most interesting person I interacted with today?",
+        "What was the best part of my day?",
+        "How did I see the hand of the Lord in my life today?",
+        "What was the strongest emotion I felt today?",
+        "If I had one thing I could do over today, what would it be?",
+        "What am I grateful for today?",
+        "What did I learn today?"
+    };
+    
+    private bool _hasUnsavedChanges = false;
 
     // Method to add a new entry
     public void AddEntry()
@@ -39,7 +38,7 @@ public class Journal
         string response = Console.ReadLine();
         
         // Create a new entry and add it to the list
-        Entry newEntry = new Entry(date, prompt, response);
+        Entry newEntry = Entry.CreateEntry(date, prompt, response);
         _entries.Add(newEntry);
         
         // Mark that we have unsaved changes
@@ -123,7 +122,7 @@ public class Journal
                     string prompt = parts[1];
                     string text = parts[2];
                     
-                    Entry entry = new Entry(date, prompt, text);
+                    Entry entry = Entry.CreateEntry(date, prompt, text);
                     _entries.Add(entry);
                 }
             }
