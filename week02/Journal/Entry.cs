@@ -7,12 +7,14 @@ public class Entry
     public string _promptText;
     public string _entryText;
 
-    // Constructor
-    public Entry(string date, string promptText, string entryText)
+    // Static method to initialize a new Entry
+    public static Entry CreateEntry(string date, string promptText, string entryText)
     {
-        _date = date;
-        _promptText = promptText;
-        _entryText = entryText;
+        Entry newEntry = new Entry();
+        newEntry._date = date;
+        newEntry._promptText = promptText;
+        newEntry._entryText = entryText;
+        return newEntry;
     }
 
     // Method to display the entry
