@@ -10,13 +10,15 @@ using System;
 // 2. I added a confirmation before quitting to prevent accidental data loss
 // 3. I added error handling for file operations
 // 4. I added empty journal handling to show a helpful message when no entries exist
- 
+
 
 public class Program
 {
     static void Main(string[] args)
     {
+        // Create the journal
         Journal journal = new Journal();
+        
         bool quit = false;
         
         while (!quit)
