@@ -7,9 +7,8 @@ using System;
 
 // Exceeding Requirements I achieved:
 // 1. I added more 2 prompts than the expected ones
-// 2. I added a confirmation before quitting to prevent accidental data loss
-// 3. I added error handling for file operations
-// 4. I added empty journal handling to show a helpful message when no entries exist
+// 2. I added a confirmation before quitting to prevent losing data when you Quit unexpectedly
+// 3. I added empty journal handling to show a helpful message when no entries exist
 
 
 public class Program

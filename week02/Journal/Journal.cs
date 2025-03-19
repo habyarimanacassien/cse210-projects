@@ -7,17 +7,8 @@ public class Journal
     // Member variables
     public List<Entry> _entries = new List<Entry>();
     
-    // Initialize prompts
-    public List<string> _prompts = new List<string> 
-    {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?",
-        "What am I grateful for today?",
-        "What did I learn today?"
-    };
+    // Create an instance of the PromptGenerator
+    private PromptGenerator _promptGenerator = new PromptGenerator();
     
     private bool _hasUnsavedChanges = false;
 
@@ -27,10 +18,8 @@ public class Journal
         // Get the current date
         string date = DateTime.Now.ToString("MM/dd/yyyy");
         
-        // Select a random prompt
-        Random random = new Random();
-        int promptIndex = random.Next(_prompts.Count);
-        string prompt = _prompts[promptIndex];
+        // Get a random prompt from the prompt generator
+        string prompt = _promptGenerator.GetRandomPrompt();
         
         // Display the prompt and get user input
         Console.WriteLine($"Prompt: {prompt}");
