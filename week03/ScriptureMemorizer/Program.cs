@@ -15,8 +15,6 @@ using System;
 * 3. Allows users to adjust difficulty by changing the number of words hidden in each step
 *    through a menu at the beginning.
 * 
-* 4. Provides progress updates to the user, showing what percentage of the scripture
-*    has been hidden so far.
 */
 
 class Program
