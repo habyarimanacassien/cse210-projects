@@ -79,19 +79,4 @@ public class Scripture
         return true;
     }
     
-    // Get the percentage of words that are hidden
-    public int GetHiddenPercentage()
-    {
-        int hiddenCount = 0;
-        
-        foreach (Word word in _words)
-        {
-            if (word.IsHidden())
-            {
-                hiddenCount++;
-            }
-        }
-        
-        return (int)Math.Round((double)hiddenCount / _words.Count * 100);
-    }
 }
