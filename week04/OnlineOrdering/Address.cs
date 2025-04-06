@@ -6,15 +6,15 @@ public class Address
     // Private variables - can only be accessed through methods
     private string _streetAddress;
     private string _city;
-    private string _stateProvince;
+    private string _stateOrProvince;
     private string _country;
 
     // Constructor - runs when we create a new Address
-    public Address(string streetAddress, string city, string stateProvince, string country)
+    public Address(string streetAddress, string city, string stateOrProvince, string country)
     {
         _streetAddress = streetAddress;
         _city = city;
-        _stateProvince = stateProvince;
+        _stateOrProvince = stateOrProvince;
         _country = country;
     }
 
@@ -22,10 +22,10 @@ public class Address
     public bool IsInUSA()
     {
         // Convert country to uppercase and check if it matches any USA variations
-        string uppercaseCountry = _country.ToUpper();
-        if (uppercaseCountry == "USA" || 
-            uppercaseCountry == "UNITED STATES" || 
-            uppercaseCountry == "UNITED STATES OF AMERICA")
+        string upperCaseCountry = _country.ToUpper();
+        if (upperCaseCountry == "USA" || 
+            upperCaseCountry == "UNITED STATES" || 
+            upperCaseCountry == "UNITED STATES OF AMERICA")
         {
             return true;
         }
@@ -40,8 +40,8 @@ public class Address
     {
         // Create a multi-line address string
         string fullAddress = _streetAddress + "\n";
-        fullAddress = fullAddress + _city + ", " + _stateProvince + "\n";
-        fullAddress = fullAddress + _country;
+        fullAddress = fullAddress + "         " + _city + ", " + _stateOrProvince + "\n";
+        fullAddress = fullAddress + "         " + _country;
         
         return fullAddress;
     }
@@ -69,14 +69,14 @@ public class Address
     }
 
     // Methods to get and set the state/province
-    public string GetStateProvince()
+    public string GetStateOrProvince()
     {
-        return _stateProvince;
+        return _stateOrProvince;
     }
 
-    public void SetStateProvince(string stateProvince)
+    public void SetStateOrProvince(string stateOrProvince)
     {
-        _stateProvince = stateProvince;
+        _stateOrProvince = stateOrProvince;
     }
 
     // Methods to get and set the country

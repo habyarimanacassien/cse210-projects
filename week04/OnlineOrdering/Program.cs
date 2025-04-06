@@ -7,11 +7,11 @@ class Program
     {
         // Create two different addresses for our customers
         Address usaAddress = new Address("123 Main St", "Seattle", "WA", "USA");
-        Address internationalAddress = new Address("456 Maple Ave", "Toronto", "Ontario", "Canada");
+        Address internationalAddress = new Address("390 Nyarugenge kgl", "Kigali", "Nyarugenge", "Rwanda");
         
         // Create two customers with their addresses
         Customer customer1 = new Customer("John Smith", usaAddress);
-        Customer customer2 = new Customer("Jane Doe", internationalAddress);
+        Customer customer2 = new Customer("Cassien Habyarimana", internationalAddress);
         
         // Create some products to sell
         Product product1 = new Product("Laptop", "TECH001", 899.99, 1);
@@ -28,21 +28,19 @@ class Program
         
         // Create Order 2 for customer 2 (International)
         Order order2 = new Order(customer2);
-        order2.AddProduct(product3);  // Add headphones
+        order2.AddProduct(product1);  // Add laptop
         order2.AddProduct(product4);  // Add USB drive
         order2.AddProduct(product5);  // Add keyboard
         
         // Display Order 1 details
         Console.WriteLine("=== ORDER 1 ===");
-        Console.WriteLine(order1.GetPackingLabel());
-        Console.WriteLine(order1.GetShippingLabel());
-        Console.WriteLine("Total Price: $" + order1.CalculateTotalPrice().ToString("F2"));
+        Console.WriteLine(order1.ShippingLabel());
+        Console.WriteLine(order1.OrderSummary());
         Console.WriteLine();
         
         // Display Order 2 details
         Console.WriteLine("=== ORDER 2 ===");
-        Console.WriteLine(order2.GetPackingLabel());
-        Console.WriteLine(order2.GetShippingLabel());
-        Console.WriteLine("Total Price: $" + order2.CalculateTotalPrice().ToString("F2"));
+        Console.WriteLine(order2.ShippingLabel());
+        Console.WriteLine(order2.OrderSummary());
     }
 }

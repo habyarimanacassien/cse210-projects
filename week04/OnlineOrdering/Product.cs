@@ -4,36 +4,36 @@ using System;
 public class Product
 {
     // Private variables
-    private string _name;
+    private string _productName;
     private string _productId;
-    private double _price;
-    private int _quantity;
+    private double _productPrice;
+    private int _productQuantity;
 
     // Constructor - runs when we create a new Product
     public Product(string name, string productId, double price, int quantity)
     {
-        _name = name;
+        _productName = name;
         _productId = productId;
-        _price = price;
-        _quantity = quantity;
+        _productPrice = price;
+        _productQuantity = quantity;
     }
 
     // Calculate the total cost of this product (price × quantity)
-    public double CalculateTotalCost()
+    public double ProductCost()
     {
-        double totalCost = _price * _quantity;
+        double totalCost = _productPrice * _productQuantity;
         return totalCost;
     }
 
     // Methods to get and set the name
     public string GetName()
     {
-        return _name;
+        return _productName;
     }
 
     public void SetName(string name)
     {
-        _name = name;
+        _productName = name;
     }
 
     // Methods to get and set the product ID
@@ -50,22 +50,22 @@ public class Product
     // Methods to get and set the price
     public double GetPrice()
     {
-        return _price;
+        return _productPrice;
     }
 
     public void SetPrice(double price)
     {
-        _price = price;
+        _productPrice = price;
     }
 
     // Methods to get and set the quantity
     public int GetQuantity()
     {
-        return _quantity;
+        return _productQuantity;
     }
 
     public void SetQuantity(int quantity)
     {
-        _quantity = quantity;
+        _productQuantity = quantity;
     }
 }
