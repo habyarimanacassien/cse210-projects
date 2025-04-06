@@ -1,15 +1,24 @@
-using Microsoft.Win32.SafeHandles;
-
 public class WritingAssignment : Assignment
 {
     private string _title;
-    public WritingAssignment(string studentName, string topic, string title) : base(studentName, topic)
+
+    // Constructor
+    public WritingAssignment(string studentName, string topic, string title)
+        : base(studentName, topic)
     {
         _title = title;
     }
+
+    // Properties (Getters)
+    public string Title
+    {
+        get { return _title; }
+    }
+
+    // Methods
     public string GetWritingInformation()
     {
-        string studentName = GetStudentName();
-        return $"{_title} by {studentName}";
+        // Now we can use the property instead of the method
+        return $"{_title} by {StudentName}";
     }
 }
