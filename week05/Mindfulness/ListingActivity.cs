@@ -18,7 +18,7 @@ public class ListingActivity : Activity
         _usedPromptIndices = new List<int>();
     }
 
-    public override void Run()
+    public void Run()
     {
         DisplayStartingMessage();
         

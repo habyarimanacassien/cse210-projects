@@ -33,7 +33,7 @@ public class ReflectionActivity : Activity
         _usedQuestionIndices = new List<int>();
     }
 
-    public override void Run()
+    public void Run()
     {
         DisplayStartingMessage();
         

@@ -1,4 +1,4 @@
-public abstract class Activity
+public class Activity
 {
     protected string _name;
     protected string _description;
@@ -149,7 +149,4 @@ public abstract class Activity
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadKey();
     }
-
-    // Each derived class must implement this
-    public abstract void Run();
 }
