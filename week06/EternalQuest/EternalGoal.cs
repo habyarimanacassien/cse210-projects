@@ -1,49 +1,31 @@
 using System;
 
-namespace EternalQuest
+// Eternal goal class - a goal that is never complete but gives points each time
+public class EternalGoal : Goal
 {
-    public class EternalGoal : Goal
+    // Constructor
+    public EternalGoal(string name, string description, int pointValue) 
+        : base(name, description, pointValue)
     {
-        public EternalGoal(string shortName, string description, int points)
-            : base(shortName, description, points)
-        {
-        }
+    }
 
-        public override int RecordEvent()
-        {
-            return _points;
-        }
+    // Override RecordEvent to always return points but never mark as complete
+    public override int RecordEvent()
+    {
+        // Eternal goals are never complete, but always give points
+        return PointValue;
+    }
 
-        public override bool IsComplete()
-        {
-            // Eternal goals are never complete.
-            return false;
-        }
+    // Create a formatted display string for listing goals
+    public override string GetDisplayString()
+    {
+        // Eternal goals are never complete, so always show empty checkbox
+        return $"[ ] {Name} ({Description}) - Eternal";
+    }
 
-        public override string GetDetailsString()
-        {
-            return $"[ ] {_shortName}: {_description}";
-        }
-
-        public override string GetStringRepresentation()
-        {
-            // Format: EternalGoal:shortName,description,points
-            return $"EternalGoal:{_shortName},{_description},{_points}";
-        }
-
-        // Factory method to recreate an EternalGoal from a saved string.
-        public static EternalGoal CreateFromString(string data)
-        {
-            // Expected data format: shortName,description,points
-            string[] parts = data.Split(',');
-            if(parts.Length < 3)
-            {
-                throw new FormatException("Invalid format for EternalGoal");
-            }
-            string name = parts[0];
-            string description = parts[1];
-            int points = int.Parse(parts[2]);
-            return new EternalGoal(name, description, points);
-        }
+    // Create a string representation for saving to a file
+    public override string GetStringRepresentation()
+    {
+        return $"EternalGoal:{Name},{Description},{PointValue},{_isComplete}";
     }
 }

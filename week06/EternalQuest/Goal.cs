@@ -1,34 +1,40 @@
 using System;
 
-namespace EternalQuest
+// Base class for all types of goals (Abstraction and Encapsulation)
+public abstract class Goal
 {
-    public abstract class Goal
+    // Private fields for encapsulation
+    private string _name;
+    private string _description;
+    private int _pointValue;
+    protected bool _isComplete;
+
+    // Properties with getters and setters for encapsulation
+    public string Name { get { return _name; } set { _name = value; } }
+    public string Description { get { return _description; } set { _description = value; } }
+    public int PointValue { get { return _pointValue; } set { _pointValue = value; } }
+    public bool IsComplete { get { return _isComplete; } }
+
+    // Constructor
+    public Goal(string name, string description, int pointValue)
     {
-        protected string _shortName;
-        protected string _description;
-        protected int _points;
+        _name = name;
+        _description = description;
+        _pointValue = pointValue;
+        _isComplete = false;
+    }
 
-        public Goal(string shortName, string description, int points)
-        {
-            _shortName = shortName;
-            _description = description;
-            _points = points;
-        }
+    // Abstract methods for polymorphic behavior
+    public abstract int RecordEvent();
+    public abstract string GetDisplayString();
+    public abstract string GetStringRepresentation();
 
-        // Record that the goal was accomplished. Returns the number of points earned.
-        public abstract int RecordEvent();
-
-        // Returns true if the goal is complete.
-        public abstract bool IsComplete();
-
-        // Returns a string with the goal details to display in a list.
-        public virtual string GetDetailsString()
-        {
-            // Default implementation (for Simple and Eternal goals).
-            return $"[ ] {_shortName}: {_description}";
-        }
-
-        // Returns a string representing the goal, which can be used for saving to a file.
-        public abstract string GetStringRepresentation();
+    // Virtual method that derived classes can override if needed
+    public virtual void Initialize(string[] parts)
+    {
+        _name = parts[1];
+        _description = parts[2];
+        _pointValue = int.Parse(parts[3]);
+        _isComplete = bool.Parse(parts[4]);
     }
 }

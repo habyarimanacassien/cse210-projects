@@ -1,0 +1,4 @@
+8896
+EternalGoal:Pray,Go to Church every Sunday,230,False
+ProgressiveGoal:Writing,Writing a paper to publish,4000,True,3,3,897
+NegativeGoal:Sleep,Sleeping earlier every night,-255,False,1

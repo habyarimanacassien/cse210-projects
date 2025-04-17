@@ -1,75 +1,101 @@
 using System;
 
-namespace EternalQuest
+// Checklist goal class - a goal that must be completed a certain number of times
+public class ChecklistGoal : Goal
 {
-    public class ChecklistGoal : Goal
+    // Private fields for encapsulation
+    private int _targetCount;
+    private int _currentCount;
+    private int _bonusPoints;
+
+    // Properties with getters and setters
+    public int TargetCount { get { return _targetCount; } set { _targetCount = value; } }
+    public int CurrentCount { get { return _currentCount; } set { _currentCount = value; } }
+    public int BonusPoints { get { return _bonusPoints; } set { _bonusPoints = value; } }
+
+    // Constructor
+    public ChecklistGoal(string name, string description, int pointValue, int targetCount, int bonusPoints) 
+        : base(name, description, pointValue)
     {
-        private int _amountCompleted;
-        private int _target;
-        private int _bonus;
-
-        public ChecklistGoal(string shortName, string description, int points, int target, int bonus)
-            : base(shortName, description, points)
+        if (targetCount <= 0)
         {
-            _target = target;
-            _bonus = bonus;
-            _amountCompleted = 0;
+            throw new ArgumentException("Target count must be greater than zero.");
         }
+        _targetCount = targetCount;
+        _currentCount = 0;
+        _bonusPoints = bonusPoints;
+    }
 
-        public override int RecordEvent()
+    // Override RecordEvent to track progress and award bonus when completed
+    public override int RecordEvent()
+    {
+        // Check if already completed
+        if (_isComplete)
         {
-            if (!IsComplete())
+            return 0; // No more points if already completed
+        }
+        
+        _currentCount++;
+        
+        // Check if this completion achieves the target
+        if (_currentCount >= _targetCount)
+        {
+            _isComplete = true;
+            return PointValue + _bonusPoints; // Award regular points plus bonus
+        }
+        
+        return PointValue; // Just the regular points
+    }
+
+    // Create a formatted display string for listing goals
+    public override string GetDisplayString()
+    {
+        string completionMark = _isComplete ? "[X]" : "[ ]";
+        string completionStatus = _isComplete ? " (COMPLETED!)" : "";
+        return $"{completionMark} {Name} ({Description}) -- Completed {_currentCount}/{_targetCount} times{completionStatus}";
+    }
+
+    // Create a string representation for saving to a file
+    public override string GetStringRepresentation()
+    {
+        return $"ChecklistGoal:{Name},{Description},{PointValue},{_isComplete},{_targetCount},{_currentCount},{_bonusPoints}";
+    }
+
+    // Override the Initialize method to handle the additional fields
+    public override void Initialize(string[] parts)
+    {
+        try
+        {
+            // First set the basic properties
+            base.Initialize(parts);
+            
+            // Then get the checklist-specific values
+            if (parts.Length > 5) _targetCount = int.Parse(parts[5]);
+            if (parts.Length > 6) _currentCount = int.Parse(parts[6]);
+            if (parts.Length > 7) _bonusPoints = int.Parse(parts[7]);
+            
+            // Make sure target count is valid
+            if (_targetCount <= 0)
             {
-                _amountCompleted++;
-                int score = _points;
-                if (_amountCompleted == _target)
-                {
-                    score += _bonus;
-                }
-                return score;
+                _targetCount = 1; // Set a safe default
+                Console.WriteLine("Warning: Loaded goal had invalid target count. Set to 1.");
             }
-            else
+            
+            // Ensure isComplete is set correctly based on current count
+            if (_currentCount >= _targetCount)
             {
-                Console.WriteLine("This checklist goal has already been completed.");
-                return 0;
+                _isComplete = true;
             }
         }
-
-        public override bool IsComplete()
+        catch (Exception ex)
         {
-            return _amountCompleted >= _target;
-        }
-
-        public override string GetDetailsString()
-        {
-            string checkbox = IsComplete() ? "[X]" : "[ ]";
-            return $"{checkbox} {_shortName}: {_description} -- Completed: {_amountCompleted}/{_target}";
-        }
-
-        public override string GetStringRepresentation()
-        {
-            // Format: ChecklistGoal:shortName,description,points,amountCompleted,target,bonus
-            return $"ChecklistGoal:{_shortName},{_description},{_points},{_amountCompleted},{_target},{_bonus}";
-        }
-
-        // Factory method to recreate a ChecklistGoal from a saved string.
-        public static ChecklistGoal CreateFromString(string data)
-        {
-            // Expected data format: shortName,description,points,amountCompleted,target,bonus
-            string[] parts = data.Split(',');
-            if(parts.Length < 6)
-            {
-                throw new FormatException("Invalid format for ChecklistGoal");
-            }
-            string name = parts[0];
-            string description = parts[1];
-            int points = int.Parse(parts[2]);
-            int amountCompleted = int.Parse(parts[3]);
-            int target = int.Parse(parts[4]);
-            int bonus = int.Parse(parts[5]);
-            ChecklistGoal goal = new ChecklistGoal(name, description, points, target, bonus);
-            goal._amountCompleted = amountCompleted;
-            return goal;
+            // Just log the error but don't throw - allows partial loading
+            Console.WriteLine($"Warning when initializing ChecklistGoal: {ex.Message}");
+            
+            // Set safe defaults
+            if (_targetCount <= 0) _targetCount = 1;
+            if (_currentCount < 0) _currentCount = 0;
+            if (_bonusPoints < 0) _bonusPoints = 0;
         }
     }
 }
